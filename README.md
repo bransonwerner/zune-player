@@ -13,10 +13,20 @@ npm run dev
 
 Open **http://127.0.0.1:5173** (not `localhost`. Spotify only accepts the loopback IP for local redirect URIs).
 
+Live: **https://bransonwerner.github.io/zune-player/**
+
+## Deploy
+
+```bash
+npm run deploy
+```
+
+Builds and pushes `dist/` to the `gh-pages` branch, which GitHub Pages serves.
+
 ## Connect Spotify
 
 1. Go to <https://developer.spotify.com/dashboard> → **Create app**.
-2. Redirect URI: `http://127.0.0.1:5173/`
+2. Redirect URIs: `https://bransonwerner.github.io/zune-player/` (live site) and `http://127.0.0.1:5173/` (local dev)
 3. APIs used: tick **Web API** and **Web Playback SDK**. Save.
 4. **User Management**: add the email of every Spotify account that will sign in (development-mode apps are allowlist-only).
 5. Copy the **Client ID** into the panel beside the device (or put it in `.env` as `VITE_SPOTIFY_CLIENT_ID`).

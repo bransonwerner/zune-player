@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist --nojekyll -m 'Deploy to GitHub Pages'"
   },
   "dependencies": {
     "@fontsource/open-sans": "^5.3.0",
@@ -20,6 +21,7 @@
     "@types/react-dom": "^19.2.7",
     "@types/spotify-web-playback-sdk": "^0.1.19",
     "@vitejs/plugin-react": "^6.1.1",
+    "gh-pages": "^6.3.0",
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
