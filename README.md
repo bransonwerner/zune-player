@@ -17,11 +17,8 @@ Live: **https://bransonwerner.github.io/zune-player/**
 
 ## Deploy
 
-```bash
-npm run deploy
-```
-
-Builds and pushes `dist/` to the `gh-pages` branch, which GitHub Pages serves.
+Every push to `main` builds and deploys to GitHub Pages via `.github/workflows/deploy.yml`.
+You can also re-run it from the repo's **Actions** tab (**Deploy to GitHub Pages** → **Run workflow**).
 
 ## Connect Spotify
 
