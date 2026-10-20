@@ -76,8 +76,8 @@ body:has(.app.narrow) { overflow: auto; }
 .swatch:hover { transform: scale(1.08); }
 .swatch.sel { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px #fff, inset 0 2px 3px rgba(255,255,255,.25); }
 .swatch-name { font-size: 14px; color: var(--dim); margin-left: 4px; }
-.sw-zune30-brown { background: linear-gradient(135deg, #5d4433, #2c1f16); box-shadow: 0 0 0 1px rgba(255,255,255,.2), inset 0 0 0 4px #3fa9b8; }
-.sw-zune30-black { background: linear-gradient(135deg, #3a3a3f, #0a0a0b); }
+.sw-zune30-brown { background: radial-gradient(circle, #5d4433 55%, #6f8a2c 58%); }
+.sw-zune30-black { background: radial-gradient(circle, #2a2a2e 55%, #3468c4 58%); }
 .sw-zune30-white { background: linear-gradient(135deg, #fff, #cfcfcb); }
 .sw-zune80-black { background: linear-gradient(135deg, #3a3a3f, #0a0a0b); }
 .sw-zune80-red { background: linear-gradient(135deg, #d8222c, #7d0c12); }

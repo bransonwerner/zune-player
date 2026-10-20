@@ -81,6 +81,7 @@ export function Zune30({ color, children }: { color: string; children: ReactNode
   const onWheel = useWheelSteps()
   return (
     <div className={`dv dv-z30 c-${color}`}>
+      <Z30Frame />
       <div className="dv-z30-window">
         <Screen className="dv-screen-classic">{children}</Screen>
       </div>
@@ -96,13 +97,57 @@ export function Zune30({ color, children }: { color: string; children: ReactNode
         onPointerCancel={release}
         onWheel={onWheel}
       >
-        <div className="dv-z30-ring" />
         <div className="dv-z30-center" />
       </div>
       <BackButton className="dv-z30-btn left" />
       <PlayButton className="dv-z30-btn right" />
       <div className="dv-hold" />
     </div>
+  )
+}
+
+/**
+ * The Zune 30's chrome surround: one "keyhole" piece that frames the screen
+ * and drops through a short neck into the ring around the pad. Proportions follow a photo of a
+ * brown Zune 30 (frame band ≈19px, ring band ≈18px at device scale).
+ */
+const Z30_OUTLINE =
+  // Neck: tight 10px fillets off the screen frame run almost straight into the
+  // pad ring (centered at 162,472), leaving only a few px of straight side.
+  'M34 23 H290 A11 11 0 0 1 301 34 V375 A11 11 0 0 1 290 386 H210 A10 10 0 0 0 200 396 V399.3 ' +
+  'A82 82 0 1 1 124 399.3 V396 A10 10 0 0 0 114 386 H34 A11 11 0 0 1 23 375 V34 A11 11 0 0 1 34 23 Z'
+
+function Z30Frame() {
+  return (
+    <svg className="dv-z30-frame" viewBox="0 0 324 592" aria-hidden>
+      <defs>
+        {/* Polished chrome: hard light/dark reflection bands rather than a smooth fade. */}
+        <linearGradient id="z30-chrome" x1="0" y1="0" x2=".55" y2="1">
+          <stop offset="0" stopColor="#e2e5e8" />
+          <stop offset=".1" stopColor="#c3c8cd" />
+          <stop offset=".2" stopColor="#6e747a" />
+          <stop offset=".3" stopColor="#c6cacf" />
+          <stop offset=".42" stopColor="#8d9399" />
+          <stop offset=".55" stopColor="#4f545a" />
+          <stop offset=".66" stopColor="#b6bbc0" />
+          <stop offset=".8" stopColor="#7c8288" />
+          <stop offset=".9" stopColor="#b9bec3" />
+          <stop offset="1" stopColor="#5a5f65" />
+        </linearGradient>
+        {/* Cross reflection so the bands vary along the frame like a curved, mirrored edge. */}
+        <linearGradient id="z30-chrome-x" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#000" stopOpacity=".18" />
+          <stop offset=".25" stopColor="#fff" stopOpacity=".12" />
+          <stop offset=".5" stopColor="#000" stopOpacity="0" />
+          <stop offset=".75" stopColor="#fff" stopOpacity=".1" />
+          <stop offset="1" stopColor="#000" stopOpacity=".22" />
+        </linearGradient>
+      </defs>
+      <path d={Z30_OUTLINE} fill="url(#z30-chrome)" stroke="rgba(0,0,0,.5)" strokeWidth="1" />
+      <path d={Z30_OUTLINE} fill="url(#z30-chrome-x)" />
+      {/* Bright rolled edge along the outer top of the chrome. */}
+      <path d="M23.6 34 A10.4 10.4 0 0 1 34 23.6 H290 A10.4 10.4 0 0 1 300.4 34" fill="none" stroke="rgba(255,255,255,.7)" strokeWidth="1" />
+    </svg>
   )
 }
 

@@ -38,18 +38,16 @@
 .zc-wall-black { background: #000; }
 .zc-wall-black::after { display: none; }
 
-/* ── status bar ── */
+/* ── status glyphs (bottom-right, as on the device) ── */
 .zc-status {
-  position: absolute; top: 0; left: 0; right: 0; height: 18px; z-index: 6;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 7px 0 9px; font-size: 10px; font-weight: 400; color: rgba(255,255,255,.92);
+  position: absolute; right: 6px; bottom: 6px; z-index: 6;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  color: rgba(255,255,255,.9); transition: opacity 200ms;
 }
-.zc-status-right { display: flex; align-items: center; gap: 6px; }
-.zc-status-play { display: flex; }
-.zc-clock { letter-spacing: .2px; }
+.zc-status.off { opacity: 0; }
 
 /* ── pages ── */
-.zc-page { position: absolute; top: 18px; left: 0; right: 0; bottom: 0; z-index: 2; }
+.zc-page { position: absolute; top: 8px; left: 0; right: 0; bottom: 0; z-index: 2; }
 .zc-page.zc-page-now { top: 0; }
 .zc-fwd { animation: zc-in-fwd 280ms cubic-bezier(.16, .8, .3, 1) both; }
 .zc-back { animation: zc-in-back 280ms cubic-bezier(.16, .8, .3, 1) both; }

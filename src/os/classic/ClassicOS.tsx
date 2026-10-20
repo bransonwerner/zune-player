@@ -3,9 +3,9 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { useInput } from '../../lib/input'
-import { MODELS, useAsync, useClock, useServices } from '../../lib/services'
+import { MODELS, useAsync, useServices } from '../../lib/services'
 import { moveSel, useStack, type Handler, type Nav, type Page } from '../../lib/stack'
-import { Battery, PauseIcon, PlayIcon, RepeatIcon, ShuffleIcon, Wifi } from '../../lib/icons'
+import { PauseIcon, PlayIcon, RepeatIcon, ShuffleIcon } from '../../lib/icons'
 import { fmtTime, playRequestFor, type Item, type SearchResults } from '../../library/types'
 import { usePlaybackState, usePosition, type Repeat } from '../../playback/types'
 import './classic.css'
@@ -74,7 +74,7 @@ export function ClassicOS() {
   return (
     <div className="zc">
       <div className={`zc-wall zc-wall-${WALLPAPERS[wallpaper] ?? 'zune'}`} />
-      <StatusBar playing={!!st.track && !st.paused} />
+      <StatusBar playing={!!st.track} paused={st.paused} hidden={isNow} />
       <div key={nav.top.id} className={`zc-page zc-${nav.dir} ${isNow ? 'zc-page-now' : ''}`}>
         <PageSwitch ctx={ctx} />
       </div>
@@ -112,16 +112,21 @@ function useHandler(ctx: Ctx, h: Handler) {
 
 /* ───────────────────────── chrome ───────────────────────── */
 
-function StatusBar({ playing }: { playing: boolean }) {
-  const time = useClock()
+/** The firmware's status glyphs, stacked in the screen's bottom-right corner. */
+function StatusBar({ playing, paused, hidden }: { playing: boolean; paused: boolean; hidden: boolean }) {
   return (
-    <div className="zc-status">
-      <span className="zc-status-play">{playing ? <PlayIcon width={8} height={8} /> : null}</span>
-      <span className="zc-status-right">
-        <Wifi />
-        <span className="zc-clock">{time}</span>
-        <Battery level={0.78} />
-      </span>
+    <div className={`zc-status ${hidden ? 'off' : ''}`} aria-hidden>
+      <svg viewBox="0 0 10 10" width="9" height="9" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+        <circle cx="2" cy="8" r=".9" fill="currentColor" stroke="none" />
+        <path d="M2 5.2 A2.8 2.8 0 0 1 4.8 8" />
+        <path d="M2 2.4 A5.6 5.6 0 0 1 7.6 8" />
+      </svg>
+      <svg viewBox="0 0 8 14" width="7" height="12">
+        <rect x="2.5" y="0" width="3" height="1.5" fill="currentColor" />
+        <rect x=".6" y="1.6" width="6.8" height="11.8" rx=".8" fill="none" stroke="currentColor" strokeWidth="1.1" />
+        <rect x="2" y="4.2" width="4" height="7.8" fill="currentColor" />
+      </svg>
+      {playing && (paused ? <PauseIcon width={8} height={8} /> : <PlayIcon width={8} height={8} />)}
     </div>
   )
 }
